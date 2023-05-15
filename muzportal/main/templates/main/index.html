@@ -1,0 +1,102 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Главная {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section class="content">
+      <div class="concert">
+      <h2 style="margin-left: auto; margin-right: auto;"><a href="{% url 'main' %}" style="color: inherit;">Концерты</a></h2>
+
+      
+
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+        {% for concert in data.concerts %}
+
+        {% if concert.pk == 2 %}
+        <div class="carousel-item active">
+        {% else %}
+        <div class="carousel-item">
+        {% endif %}
+        <a href="{{concert.concert.link}}"><img src="{{concert.img.url}}" class="d-block w-100 rounded" alt="..." style="object-fit: cover; height: 395px;">
+        <div class="carousel-caption d-block d-md-block" style="visibility: visible;">
+          <h2 style="text-shadow: 3px 3px 3px black;">{{concert.concert.title}} - {{concert.concert.date_of}} в {{concert.concert.time_of}}</h2>
+        </div></a>
+      </div>
+
+        {% endfor %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      </div>
+      </div>
+
+      <h2 style="margin-left: auto; margin-right: auto; margin-top: 2%;"><a href="{% url 'news' %}" style="color: inherit;">Новости</a></h2>
+
+      
+
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+
+
+        <div class="row align-items-start">
+            {% for news in data.news %}
+          <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="{{news.get_absolute_url}}" class="card">
+              <img src="{{news.img.url}}" alt="" class="card__img">
+              <span class="card__footer">
+                <span>{{news.article.title|truncatewords:10}}</span>
+                <span>{{news.article.date}}</span>
+              </span>
+            </a>
+          </div>
+          {% endfor %}
+
+          <!-- <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="#" class="card">
+              <img src="{% static 'main/images/vDNIP_w6uyU.jpg' %}" alt="" class="card__img">
+              <span class="card__footer">
+                <span>Linkin Park выпустила клип на неизданную песню с вокалом Беннингтона Беннингтона Беннингтона</span>
+                <span>19-04-2022</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="#" class="card">
+              <img src="{% static 'main/images/vDNIP_w6uyU.jpg' %}" alt="" class="card__img">
+              <span class="card__footer">
+                <span>Linkin Park выпустила клип на неизданную песню с вокалом Беннингтона</span>
+                <span>19-04-2022</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="#" class="card">
+              <img src="{% static 'main/images/vDNIP_w6uyU.jpg' %}" alt="" class="card__img">
+              <span class="card__footer">
+                <span>Linkin Park выпустила клип на неизданную песню с вокалом Беннингтона</span>
+                <span>19-04-2022</span>
+              </span>
+            </a>
+          </div> -->
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+    
+  </div>
+
+{% endblock %}

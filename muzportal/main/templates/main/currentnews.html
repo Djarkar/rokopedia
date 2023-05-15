@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {{cnews.article.title|truncatewords:5}} {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">{{cnews.article.title}}</h2>
+      <div class="group">
+      <img src="{{cnews.img.url}}" class="rounded mx-auto d-block" alt="..." style="max-width: 80%;">
+      </div>
+      
+      <div style="margin-left: 5%;" class="mt-2">
+
+        <span class="topic-body__label _story">Категория: {{cnews.article.category.title}}</span>
+
+        <p style="font-size: 15px; margin: 0%;">{{cnews.article.date}}</p>
+
+        </div>
+
+      <p style="margin: 5%;">{{cnews.article.body|linebreaks}}</p>
+
+
+      <h2 style="margin-top: 2%;" class="othernews mb-3">Другие новости</h2>
+
+  
+
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+
+
+        <div class="row align-items-start">
+            {% for elem in randnews %}
+            <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+                <a href="{{elem.get_absolute_url}}" class="card">
+                  <img src="{{elem.img.url}}" alt="" class="card__img">
+                  <span class="card__footer">
+                    <span>{{elem.article.title|truncatewords:10}}</span>
+                    <span>{{elem.article.date}}</span>
+                  </span>
+                </a>
+              </div>
+            {% endfor %}
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+</div>
+
+
+{% endblock %}

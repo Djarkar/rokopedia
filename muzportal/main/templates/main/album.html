@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {{album.album.title|truncatewords:5}} {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">{{album.album.title}}</h2>
+      <div class="group">
+      <img src="{{album.img.url}}" class="rounded mx-auto d-block" alt="...">
+      </div>
+      
+      <p style="margin: 5%;">Описание альбома</p>
+
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin: 5%;">Слушать альбом на площадках</h2>
+
+      <div class="button-container">
+  
+        <div class="glass-btn blue-btn">
+          <a href={{album.album.url_vk}}><img src="{% static 'main/images/vk.png' %}" alt="vk" style="width: 5.5em;"></a>
+        </div>
+      
+        <!--<div class="glass-btn red-btn">
+          <a href="   "></a><img src="./static/img/spotify.png" alt="spotify" style="width: 6em;"></a>
+        </div>-->
+        
+        <div class="glass-btn amber-btn">
+          <a href={{album.album.url_yandex}}><img src="{% static 'main/images/yandexmusic.png' %}" alt="yandexmusic" style="width: 6em;"></a>
+        </div>
+      
+      </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

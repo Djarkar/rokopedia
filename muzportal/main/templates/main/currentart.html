@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {{curart.artist.name|truncatewords:5}} {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">{{curart.artist.name}}</h2>
+      <div class="group">
+      <img src="{{curart.img.url}}" class="rounded mx-auto d-block" alt="..." style="max-width: 80%;">
+      </div>
+      
+      <p style="margin: 5%;">{{curart.artist.body|linebreaks}}</p>
+
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center;">Дискография</h2>
+      
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+        
+
+        <div class="row align-items-start">
+            {% for album in albums %}
+            <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4 mt-4" style="margin-left: auto; margin-right: auto;">
+                <a href="{{album.get_absolute_url}}" class="card">
+                  <img src="{{album.img.url}}" alt="" class="card__img">
+                  <span class="card__footer">
+                    <span><h4>{{album.album.title|truncatewords:10}}</h4></span>
+                  </span>
+                </a>
+              </div>
+            {% endfor %}
+
+        </div>
+
+
+      </div>
+
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin: 5%;">История</h2>
+      
+      <p style="margin: 5%;">{{curart.artist.history|linebreaks}}</p>
+
+    </section>
+
+</div>
+{% endblock %}

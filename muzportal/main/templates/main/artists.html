@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Исполнители {% endblock %}
+{% block content %}
+
+
+<div class="col-8">
+
+    <section>
+      <h2 style="margin-left: auto; margin-right: auto; margin-top: 2%;">Исполнители</h2>
+
+  
+
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+
+
+        <div class="row align-items-start">
+            {% for art in artists %}
+            <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+                <a href="{{art.get_absolute_url}}" class="card">
+                  <img src="{{art.img.url}}" alt="" class="card__img">
+                  <span class="card__footer">
+                    <span>{{art.artist.name}}</span>
+                  </span>
+                </a>
+              </div>
+            {% endfor %}
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+</div>
+{% endblock %}

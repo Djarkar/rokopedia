@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Transparent Login Form HTML CSS</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        .body {
+            background-image: url("{% static 'main/images/bg.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: "Ubuntu";
+            color: #000;
+            animation: rotate 6s infinite alternate linear;
+        }
+    
+        .bg-img {
+            background: url("{% static 'main/images/bg.jpg' %}");
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+    
+    
+    
+            background-repeat: no-repeat;
+    
+    
+            color: #000;
+            animation: rotate 6s infinite alternate linear;
+
+           
+        }
+        .errors {
+            list-style-type: none;
+            color: red;
+        } 
+    </style>
+    </head>
+    
+    <body>
+    <div class="bg-img">
+        <div class="content">
+            <header>Вход в аккаунт</header>
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="errors mb-2">{{form.non_field_errors}}</div>
+                <div class="field">
+                <span class="fa fa-user"></span>
+                {{form.username}}
+                </div>
+                <div class="field space">
+                <span class="fa fa-lock"></span>
+                {{form.password}}
+                </div>
+                <div class="field" style="margin-top: 2%;">
+                <input type="submit" value="ВОЙТИ">
+                </div>
+            </form>
+    
+            <div class="signup" style="margin-top: 15px;">
+                Нет аккаунта?
+                <a href="{% url 'signup' %}">Зарегистрируйтесь здесь</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Новости {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>
+
+      <h2 style="margin-left: auto; margin-right: auto; margin-top: 2%;">Новости</h2>
+
+      
+
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+
+
+        <div class="row align-items-start">
+            {% for elem in news %}
+            <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+              <a href="{{elem.get_absolute_url}}" class="card">
+                <img src="{{elem.img.url}}" alt="" class="card__img">
+                <span class="card__footer">
+                  <span>{{elem.article.title|truncatewords:10}}</span>
+                  <span>{{elem.article.date}}</span>
+                </span>
+              </a>
+            </div>
+            {% endfor %}
+
+        </div>
+      </div>
+
+    </section>
+</div>
+
+        
+
+{% endblock %}
