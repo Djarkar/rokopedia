@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,7 +6,6 @@
         <meta charset="utf-8">
         <title>Transparent Login Form HTML CSS</title>
         <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <style>
            .body {
               background-image: url("{% static 'main/images/bg.jpg' %}");
@@ -30,6 +30,13 @@
               color: #000;
               animation: rotate 6s infinite alternate linear;
            }
+           .errors {
+            list-style-type: none;
+            color: whitesmoke;
+            font-size: 18px;
+            text-shadow: 2px 2px 2px black;
+            margin-bottom: 7%;
+           }
         </style>
      </head>
      
@@ -39,7 +46,11 @@
               <header>Регистрация</header>
               <form method="post">
                 {% csrf_token %}
-                <div>{{form.errors}}</div>
+                  {% for field, errors in form.errors.items %}
+                  {% for error in errors %}
+                  <div class="errors">{{error}}</div>
+                  {% endfor %}
+                  {% endfor %}
                  <div class="field">
                     <span class="fa fa-user"></span>
                     {{form.username}}
@@ -65,7 +76,7 @@
      
               <div class="signup">
                  Уже есть аккаунт?
-                 <a href="#">Войти</a>
+                 <a href="{% url 'signin' %}">Войти</a>
               </div>
            </div>
         </div>
@@ -73,7 +84,6 @@
 <body>
     <form method="post">
     {% csrf_token %}
-    
     {% for elem in form %}
     <div class="what">{{elem.errors}}</div>
     <div><label for="{{elem.id_for_label}}">{{elem.label}}</label><div>{{elem}}</div></div>

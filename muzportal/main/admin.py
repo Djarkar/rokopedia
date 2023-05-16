@@ -23,6 +23,8 @@ class Concerts_imgAdmin(admin.ModelAdmin):
     list_display_links = ('concert',)
     search_fields = ('concert',)
 
+class PostsAdmin(admin.ModelAdmin):
+    readonly_fields = ('post_date',)
 admin.site.register(Concects_img, Concerts_imgAdmin)
 
 admin.site.register(Concerts)
@@ -34,5 +36,9 @@ admin.site.register(Categories_news)
 admin.site.register(News_img)
 
 admin.site.register(Articles)
+admin.site.register(Posts, PostsAdmin)
+admin.site.register(Categories_post)
 
-admin.site.register(User_img)
+class CommentsAdmin(admin.ModelAdmin):
+    readonly_fields = ('post_date',)
+admin.site.register(Comments_forum, CommentsAdmin)

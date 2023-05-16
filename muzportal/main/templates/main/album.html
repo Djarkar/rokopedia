@@ -6,12 +6,34 @@
 <div class="col-8">
 
     <section>
-      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">{{album.album.title}}</h2>
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;"><a href="{{album.album.artist.get_absolute_url}}" style="color: inherit;"> {{album.album.artist.name}}</a> - {{album.album.title}}</h2>
       <div class="group">
-      <img src="{{album.img.url}}" class="rounded mx-auto d-block" alt="...">
+      <img src="{{album.img.url}}" class="rounded mx-auto d-block" alt="..." style="max-width: 80%;">
       </div>
-      
-      <p style="margin: 5%;">Описание альбома</p>
+
+      <div class="album-tracks mt-5" style="width: 100%;">
+
+        <div class="container text-center" style="margin-top: 0%;">
+          {% for song in songs %}
+          <div class="row align-items-center mb-2 justify-content-center" style="--bs-gutter-x: 0.1rem;"> 
+            <div class="col-3" style="max-width: 32px;">
+              <img src="{{album.img.url}}" style="max-width: 35px;"><br>
+            </div>
+
+            <div class="col-6" style="text-align: left; vertical-align: auto;">
+              <p style="margin-bottom: 0%; font-size: 100%; margin-left: 6%;">{{song.title}}</p>
+            </div>
+
+            <div class="col-3" style="text-align: right;">
+              <p style="margin-bottom: 0%; font-size: 100%;">{{song.duration}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+
+
+      </div>
 
       <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin: 5%;">Слушать альбом на площадках</h2>
 

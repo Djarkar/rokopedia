@@ -3,31 +3,28 @@
 {% block title %} Профиль {% endblock %}
 {% block content %}
 
-
 <div class="col-8">
 
-    <section>
-      
-      <article class="profile" style="margin-bottom: 60%; max-width: 100%; margin-left: auto; margin-right: auto;">
-        <div class="profile-image">
-            <img src="{{img.img.url|default_if_none:'#'}}" alt="">
-            <!-- {% if img.img.url %}
-          <img src="{{img.img.url}}">
-            {% else %}
-            <img src="{% static 'main/images/default_image_user.png' %}">
-            {% endif %} -->
-        </div>
-        <div class="profile-actions">
-          <a href="{% url 'updateavatar' user.id %}">Изменить фото</a>
-        </div>
-        <h2 class="profile-username">Логин: {{user.username}} - {{user.id}} - {{img.id}}</h2>
-        <h2 class="profile-username">ФИО: {{user.first_name}}</h2>
-        <small class="profile-user-handle">email</small>
+  <section>
 
-        <small style="margin-top: 15%;" class="profile-user-handle">Последний раз в сети:</small>
-      </article>
+    <article class="profile" style="margin-bottom: 60%; max-width: 350px; margin-left: auto; margin-right: auto;">
+      <h2 class="profile-username">Логин: {{user.username}}</h2>
 
-    </section>
+      <small class="profile-user-handle">ФИО: {{user.first_name}}</small>
+      <form action="" method="post">
+        {% csrf_token %}
+      <div class="input-group mt-5">
+        {{form.first_name}}
+      </div>
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+     </form>
+      <div class="profile-actions">
+        <a href="{% url 'logout' %}"><button class="btn btn--primary" style="margin-top: 15%;">Выйти</button></a>
+      </div>
+    </article>
+
+
+  </section>
 
 </div>
 

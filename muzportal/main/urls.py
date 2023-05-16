@@ -13,8 +13,15 @@ urlpatterns = [
     path('artists', AllArtists.as_view(), name='artists'),
     path('artists/<int:id_art>', CurArtist.as_view(), name='currentartist'),
     path('album/<int:id_album>', Album.as_view(), name='album'),
-    path('profile', Profile.as_view(), name='profile'),
-    path('profile/updateavatar/<int:id_upd>', ChangeProfileImg.as_view(), name='updateavatar'),
+    path('profile/<int:id_prof>', Profile.as_view(), name='profile'),
+    path('concerts', AllConcerts.as_view(), name='concerts'),
+    path('forum/', AllPostsForum.as_view(), name='forum'),
+    path('forum/addpost', AddPost.as_view(), name='addpost'),
+    path('forum/posts/<int:id_post>', CurPost.as_view(), name='curpost'),
+    path('forum/deletepost/<int:id_post_delete>', DeletePost.as_view(), name='deletepost'),
+    path('forum/myposts', MyPosts.as_view(), name='myposts'),
+    path('forum/category/<int:id_cat>', CategoryPost.as_view(), name='cat_post'),
+    path('forum/rules', ForumRules.as_view(), name='forumrules')
     
 ]
 

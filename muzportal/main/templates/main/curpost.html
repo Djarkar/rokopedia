@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>
+
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">{{post.user.first_name}} - {{post.topic}}</h2>
+      <div class="group">
+      <img src="{{post.img.url}}" class="rounded mx-auto d-block" alt="..." style="width: 80%;">
+      </div>
+      
+      <p style="margin: 5%;">{{post.body}}</p>
+      <ul class="list-unstyled">
+      <form method="post">
+        {% csrf_token %}
+      <li class="d-flex justify-content-between" style="margin-top: 8%; margin-left: 5%; max-width: 1000px; margin-right: 5%; margin-bottom: 5%;">
+        {{form.body}}
+        <button type="submit" class="btn btn-primary ms-3" style="background-color: #212121;">Отправить сообщение</button>
+      </li>
+        </form>
+        <h2 style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 5%;">Комментарии</h2>
+      {% for elem in com %}
+      <li class="d-flex justify-content-between mb-4">
+        <div style="padding: 10px; background-color: rgb(31, 31, 31); width: 100%;">
+          <div class="card-header d-flex justify-content-between p-3" style="width: 100%;">
+            <p class="fw-bold mb-0" style="text-align: left; margin-left: 5%;">{{elem.user.first_name}}</p>
+            <p class="text-muted small mb-0" style="text-align: right;">{{elem.post_date}}</p>
+          </div>
+            <div class="card-body">
+              <p class="mb-0">
+                {{elem.body}}
+              </p>
+            </div>
+          </div>
+      </li>
+      {% endfor %}
+      </ul>
+      <div class="container text-center fs-5">
+        {% if request.user.id == post.user.id %}
+        <a href="{% url 'deletepost' post.id %}">Удалить пост</a>
+        {% endif %}
+      </div>
+    </section>
+
+</div>
+
+{% endblock %}

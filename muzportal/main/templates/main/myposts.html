@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Исполнители {% endblock %}
+{% block content %}
+
+<div class="col-8">
+
+    <section>   
+      
+      <h2 style="margin-left: auto; margin-right: auto; text-align: center;"><a href="{% url 'forum' %}" style="text-decoration: none; color: inherit;">Форум</a></h2>
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); width: 100%; margin-top: 2%; margin-bottom: 3%;">
+        Во время общения пожалуйста соблюдайте <a href="{% url 'forumrules' %}">ПРАВИЛА ФОРУМА</a> 
+      </div>
+
+  
+      <div ><h2 class="text-center mb-4">Мои посты</h2></div>
+      <div class="news" style="display: inline-block; text-align: center; margin-left: auto; margin-right: auto;">
+
+
+        <div class="row align-items-start">
+          <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="{% url 'addpost' %}" class="card">
+              <img src="{% static 'main/images/plus.png' %}" alt="" class="card__img">
+            </a>
+          </div>
+
+          {% for post in posts %}
+
+          <div class="col-12 col-md-6 col-sm-12 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto;">
+            <a href="{{post.get_absolute_url}}" class="card">
+              <img src="{{post.img.url}}" alt="" class="card__img">
+              <span class="card__footer" style="height: 100%;">
+                <h2 style="text-align: center;">{{post.topic|truncatewords:10}}</h2>
+                <span>{{post.user.first_name}}</span>
+              </span>
+            </a>
+          </div>
+          {% endfor %}
+
+      </div>
+    
+    </section>
+
+</div>
+
+{% endblock %}

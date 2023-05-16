@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -111,6 +112,8 @@ class Artists(models.Model):
     history = models.TextField(blank=True, verbose_name="История", db_index=True)
     body = models.TextField(blank=True, verbose_name="Описание", db_index=True)
 
+    def get_absolute_url(self):
+        return reverse('currentartist', kwargs={'id_art': self.pk})
 
     def __str__(self):
         return self.name
@@ -177,19 +180,52 @@ class Albums_img(models.Model):
         verbose_name_plural = 'Изображения альбомов'
         ordering = ['album']
 
-class User_img(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь", db_index=True)
-    img = models.ImageField(upload_to="images/news", blank=True, verbose_name="Изображение", db_index=True)
+class Posts(models.Model):
+    topic = models.CharField(max_length=200, verbose_name="Тема", db_index=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь", db_index=True, blank=True)
+    body = models.TextField(verbose_name="Пост", db_index=True, blank=True)
+    post_date = models.DateTimeField(verbose_name="Дата публикации", auto_now_add=True, editable=True)
+    category = models.ForeignKey('Categories_post', on_delete=models.CASCADE, verbose_name="Категория", db_index=True, blank=True)
+    img = models.ImageField(upload_to="images/posts", verbose_name="Изображение", db_index=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('profile', kwargs={'id_user': self.user.pk})
+        return reverse('curpost', kwargs={'id_post': self.pk})
 
     def __str__(self):
-        return self.user.username
+        return f'{self.topic} - {self.user.first_name}({self.user.username})'
 
     class Meta:
-        verbose_name = 'Изображение пользователя'
-        verbose_name_plural = 'Изображение пользователя'
-        ordering = ['user']
+        verbose_name = '[ФОРУМ] Пост'
+        verbose_name_plural = '[ФОРУМ] Посты'
+        ordering = ['post_date']
+
+
+class Categories_post(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Название", db_index=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('cat_post', kwargs={'id_cat': self.pk})
+
+    def __str__(self):
+        return f'{self.pk} - {self.title}'
+
+    class Meta:
+        verbose_name = '[ФОРУМ] Категория поста'
+        verbose_name_plural = '[ФОРУМ] Категории постов'
+        ordering = ['pk']
+
+class Comments_forum(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь", db_index=True, blank=True)
+    post = models.ForeignKey('Posts', on_delete=models.CASCADE, verbose_name="Пост", db_index=True, blank=True)
+    body = models.CharField(verbose_name="Комментарий", db_index=True, blank=True, max_length=1000)
+    post_date = models.DateTimeField(verbose_name="Дата публикации", auto_now_add=True, editable=True)
+
+    def __str__(self):
+        return f'{self.post.topic} - {self.body}'
+
+    class Meta:
+        verbose_name = '[ФОРУМ] Комментарий поста'
+        verbose_name_plural = '[ФОРУМ] Комментарии постов'
+        ordering = ['post_date']
 
 
